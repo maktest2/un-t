@@ -144,11 +144,6 @@ class Use_unpkg {
 				'file'     => 'backbone',
 				'minified' => '-min',
 			),
-			'pluploads'                 => array(
-				'package'  => 'plupload',
-				'file'     => 'js/plupload.full.min',
-				'minified' => '',
-			),
 			'mediaelement'              => array(
 				'package'  => 'mediaelement',
 				'file'     => 'build/mediaelement-and-player',
