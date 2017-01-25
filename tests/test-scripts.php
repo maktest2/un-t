@@ -19,8 +19,9 @@ class Tests_Use_unpkg_Scripts extends WP_UnitTestCase {
 	}
 
 	public function copy_original_src( $scripts ) {
-		foreach ( $scripts->registered as $handle => $item ) {
-			$item->original_src = $item->src;
+		foreach ( Use_unpkg::get_instance()->unpkg_scripts as $handle => $data ) {
+			$script = $scripts->query( $handle );
+			$script->original_src = $script->src;
 		}
 	}
 
@@ -33,6 +34,11 @@ class Tests_Use_unpkg_Scripts extends WP_UnitTestCase {
 	public function test_scripts_replaced() {
 		$scripts = wp_scripts();
 		foreach ( Use_unpkg::get_instance()->unpkg_scripts as $handle => $data ) {
+			$this->assertEquals(
+				200,
+				$handle,
+				$handle . ' name'
+			);
 			if ( in_array( $handle, array( 'twentysixteen-html5', 'html5', 'jquery-scrollto' ) ) ) {
 				continue;
 				//$this->markTestSkipped( 'Twenty Sixteen should be active for this test' );
