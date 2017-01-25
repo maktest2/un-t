@@ -36,7 +36,7 @@ class Tests_Use_unpkg_Scripts extends WP_UnitTestCase {
 		$s = Use_unpkg::get_instance()->unpkg_scripts;
 	
 		foreach ( $s as $handle => $data ) {
-			echo $handle;
+			echo $handle . "\n";
 			if ( in_array( $handle, array( 'twentysixteen-html5', 'html5', 'jquery-scrollto' ) ) ) {
 				continue;
 				//$this->markTestSkipped( 'Twenty Sixteen should be active for this test' );
@@ -47,6 +47,7 @@ class Tests_Use_unpkg_Scripts extends WP_UnitTestCase {
 				'https://unpkg.com',
 				$script->src, $handle . ' should be loading from unpkg'
 			);
+			echo $script->src . "\n";
 		}
 	}
 
@@ -63,7 +64,7 @@ class Tests_Use_unpkg_Scripts extends WP_UnitTestCase {
 				continue;
 				//$this->markTestSkipped( 'Twenty Sixteen should be active for this test' );
 			}
-
+echo $handle . "\n";
 			$script = $scripts->query( $handle );
 			$response_code = wp_remote_retrieve_response_code( wp_remote_get( $script->src ) );
 			$this->assertEquals(
@@ -71,6 +72,7 @@ class Tests_Use_unpkg_Scripts extends WP_UnitTestCase {
 				$response_code,
 				$handle . ' should exists on unpkg'
 			);
+			echo $response_code . "\n";
 		}
 	}
 
