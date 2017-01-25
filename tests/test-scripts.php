@@ -21,6 +21,10 @@ class Tests_Use_unpkg_Scripts extends WP_UnitTestCase {
 	public function test_scripts_replaced() {
 		$scripts = wp_scripts();
 		foreach ( Use_unpkg::get_instance()->unpkg_scripts as $handle => $data ) {
+			if ( 'twentysixteen-html5' == $handle && 'twentysixteen' != get_template() ) {
+				$this->markTestSkipped( 'Twenty Sixteen should be active for this test' );
+			}
+			
 			$script = $scripts->query( $handle );
 			$this->assertContains(
 				'https://unpkg.com',
@@ -38,6 +42,10 @@ class Tests_Use_unpkg_Scripts extends WP_UnitTestCase {
 	public function test_scripts_exists_on_unpkg() {
 		$scripts = wp_scripts();
 		foreach ( Use_unpkg::get_instance()->unpkg_scripts as $handle => $data ) {
+			if ( 'twentysixteen-html5' == $handle && 'twentysixteen' != get_template() ) {
+				$this->markTestSkipped( 'Twenty Sixteen should be active for this test' );
+			}
+
 			$script = $scripts->query( $handle );
 			$response_code = wp_remote_retrieve_response_code( wp_remote_get( $script->src ) );
 			$this->assertEquals(
@@ -49,7 +57,7 @@ class Tests_Use_unpkg_Scripts extends WP_UnitTestCase {
 	}
 
 	public function test_noconflict_injected() {
-		$script = $scripts->query( 'jquery-core' );
+		$script = wp_scripts()->query( 'jquery-core' );
 		$data = $script->extra['after'][1];
 		$this->assertEquals(
 			'try{jQuery.noConflict();}catch(e){};',
