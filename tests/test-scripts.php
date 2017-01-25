@@ -34,17 +34,9 @@ class Tests_Use_unpkg_Scripts extends WP_UnitTestCase {
 	public function test_scripts_replaced() {
 		$scripts = wp_scripts();
 		$s = Use_unpkg::get_instance()->unpkg_scripts;
-		$this->assertEquals(
-				'200',
-				var_export( $s, true ),
-				'scripts array'
-			);
+	
 		foreach ( $s as $handle => $data ) {
-			$this->assertEquals(
-				200,
-				$handle,
-				$handle . ' name'
-			);
+			
 			if ( in_array( $handle, array( 'twentysixteen-html5', 'html5', 'jquery-scrollto' ) ) ) {
 				continue;
 				//$this->markTestSkipped( 'Twenty Sixteen should be active for this test' );
