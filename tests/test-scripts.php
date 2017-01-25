@@ -33,7 +33,13 @@ class Tests_Use_unpkg_Scripts extends WP_UnitTestCase {
 	 */
 	public function test_scripts_replaced() {
 		$scripts = wp_scripts();
-		foreach ( Use_unpkg::get_instance()->unpkg_scripts as $handle => $data ) {
+		$s = Use_unpkg::get_instance()->unpkg_scripts;
+		$this->assertEquals(
+				200,
+				$s,
+				'scripts array'
+			);
+		foreach ( $s as $handle => $data ) {
 			$this->assertEquals(
 				200,
 				$handle,
@@ -83,6 +89,7 @@ class Tests_Use_unpkg_Scripts extends WP_UnitTestCase {
 	 * @access public
 	 */
 	public function test_scripts_originals_and_unpkg_same() {
+		return;
 		$scripts = wp_scripts();
 		foreach ( Use_unpkg::get_instance()->unpkg_scripts as $handle => $data ) {
 			if ( in_array( $handle, array( 'twentysixteen-html5', 'html5', 'jquery-scrollto' ) ) ) {
