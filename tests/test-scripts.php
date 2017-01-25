@@ -15,7 +15,7 @@ class Tests_Use_unpkg_Scripts extends WP_UnitTestCase {
 	function setUp() {
 		parent::setUp();
 
-		add_action( 'wp_default_scripts', array( $this, 'copy_original_src' );
+		add_action( 'wp_default_scripts', array( $this, 'copy_original_src' ) );
 	}
 
 	public function copy_original_src( $scripts ) {
