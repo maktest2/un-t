@@ -12,6 +12,19 @@
  * @since 1.0
  */
 class Tests_Use_unpkg_Scripts extends WP_UnitTestCase {
+	function setUp() {
+		parent::setUp();
+
+		add_action( 'wp_default_scripts', array( $this, 'copy_original_src' );
+	}
+
+	public function copy_original_src( $scripts ) {
+		foreach ( Use_unpkg::get_instance()->unpkg_scripts as $handle => $data ) {
+			$script = $scripts->query( $handle );
+			$script->original_src = $script->src;
+		}
+	}
+
 	/**
 	 * Test that scripts sources are replaced.
 	 *
@@ -21,7 +34,7 @@ class Tests_Use_unpkg_Scripts extends WP_UnitTestCase {
 	public function test_scripts_replaced() {
 		$scripts = wp_scripts();
 		foreach ( Use_unpkg::get_instance()->unpkg_scripts as $handle => $data ) {
-			if ( 'twentysixteen-html5' == $handle && 'twentysixteen' != get_template() ) {
+			if ( in_array( $handle, array( 'twentysixteen-html5', 'html5', 'jquery-scrollto' ) ) ) {
 				continue;
 				//$this->markTestSkipped( 'Twenty Sixteen should be active for this test' );
 			}
@@ -43,7 +56,7 @@ class Tests_Use_unpkg_Scripts extends WP_UnitTestCase {
 	public function test_scripts_exists_on_unpkg() {
 		$scripts = wp_scripts();
 		foreach ( Use_unpkg::get_instance()->unpkg_scripts as $handle => $data ) {
-			if ( 'twentysixteen-html5' == $handle && 'twentysixteen' != get_template() ) {
+			if ( in_array( $handle, array( 'twentysixteen-html5', 'html5', 'jquery-scrollto' ) ) ) {
 				continue;
 				//$this->markTestSkipped( 'Twenty Sixteen should be active for this test' );
 			}
@@ -54,6 +67,35 @@ class Tests_Use_unpkg_Scripts extends WP_UnitTestCase {
 				200,
 				$response_code,
 				$handle . ' should exists on unpkg'
+			);
+		}
+	}
+
+	/**
+	 * Test that original files are same.
+	 *
+	 * @since 1.0
+	 * @access public
+	 */
+	public function test_scripts_originals_and_unpkg_same() {
+		$scripts = wp_scripts();
+		foreach ( Use_unpkg::get_instance()->unpkg_scripts as $handle => $data ) {
+			if ( in_array( $handle, array( 'twentysixteen-html5', 'html5', 'jquery-scrollto' ) ) ) {
+				continue;
+				//$this->markTestSkipped( 'Twenty Sixteen should be active for this test' );
+			}
+
+			$script = $scripts->query( $handle );
+			$original_content = file_get_contents( untrailingslashit( ABSPATH ) . $script->original_src );
+			if ( 'jquery-core' == $handle ) {
+				$original_content .= '
+jQuery.noConflict();';
+			}
+			$response_body = wp_remote_retrieve_body( wp_remote_get( $script->src ) );
+			$this->assertEquals(
+				$original_content,
+				$response_body,
+				$handle . ' should be the same on unpkg'
 			);
 		}
 	}
