@@ -22,7 +22,7 @@ class Tests_Use_unpkg_Scripts extends WP_UnitTestCase {
 		$scripts = wp_scripts();
 		foreach ( Use_unpkg::get_instance()->unpkg_scripts as $handle => $data ) {
 			if ( 'twentysixteen-html5' == $handle && 'twentysixteen' != get_template() ) {
-				$this->markTestSkipped( 'Twenty Sixteen should be active for this test' );
+				//$this->markTestSkipped( 'Twenty Sixteen should be active for this test' );
 			}
 			
 			$script = $scripts->query( $handle );
@@ -43,7 +43,7 @@ class Tests_Use_unpkg_Scripts extends WP_UnitTestCase {
 		$scripts = wp_scripts();
 		foreach ( Use_unpkg::get_instance()->unpkg_scripts as $handle => $data ) {
 			if ( 'twentysixteen-html5' == $handle && 'twentysixteen' != get_template() ) {
-				$this->markTestSkipped( 'Twenty Sixteen should be active for this test' );
+				//$this->markTestSkipped( 'Twenty Sixteen should be active for this test' );
 			}
 
 			$script = $scripts->query( $handle );
