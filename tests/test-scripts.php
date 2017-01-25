@@ -66,7 +66,9 @@ class Tests_Use_unpkg_Scripts extends WP_UnitTestCase {
 			}
 echo $handle . "\n";
 			$script = $scripts->query( $handle );
-			$response_code = wp_remote_retrieve_response_code( wp_remote_get( $script->src ) );
+			$response = wp_remote_get( $script->src );
+			$response_code = wp_remote_retrieve_response_code( $response );
+			print_r( $response );
 			$this->assertEquals(
 				200,
 				$response_code,
