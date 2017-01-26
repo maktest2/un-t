@@ -81,10 +81,10 @@ echo $handle . "\n";
 			);
 			echo $response_code . "\n";
 		}
-print_r( did_action( 'init' ) ) . "\n";
-print_r( did_action( 'template_redirect' ) ) . "\n";
-print_r( did_action( 'wp_head' ) ) . "\n";
-print_r( did_action( 'wp_footer' ) ) . "\n";
+print_r( did_action( 'init' ) . "\n" );
+print_r( did_action( 'template_redirect' ) . "\n" );
+print_r( did_action( 'wp_head' ) . "\n" );
+print_r( did_action( 'wp_footer' ) . "\n" );
 	}
 
 	/**
@@ -94,8 +94,9 @@ print_r( did_action( 'wp_footer' ) ) . "\n";
 	 * @access public
 	 */
 	public function test_scripts_originals_and_unpkg_same() {
-		return;
 		$scripts = wp_scripts();
+		add_action( 'wp_default_scripts', array( $this, 'copy_original_src' ) );
+		$scripts->init();
 		foreach ( Use_unpkg::get_instance()->unpkg_scripts as $handle => $data ) {
 			if ( in_array( $handle, array( 'twentysixteen-html5', 'html5', 'jquery-scrollto' ) ) ) {
 				continue;
