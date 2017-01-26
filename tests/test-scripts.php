@@ -116,7 +116,7 @@ jQuery.noConflict();';
 			}
 			$this->assertEquals(
 				$original_content,
-				$response_body,
+				'staaaasds',
 				$handle . ' should be the same on unpkg'
 			);
 		}
