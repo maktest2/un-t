@@ -23,6 +23,10 @@ tests_add_filter( 'muplugins_loaded', '_manually_load_plugin' );
 
 function _copy_original_dependency_src( $scripts ) {
 	foreach ( Use_unpkg::get_instance()->unpkg_scripts as $handle => $data ) {
+		if ( in_array( $handle, array( 'twentysixteen-html5', 'html5', 'jquery-scrollto' ) ) ) {
+			continue;
+			//$this->markTestSkipped( 'Twenty Sixteen should be active for this test' );
+		}
 		$script = $scripts->query( $handle );
 		$script->original_src = $script->src;
 	}
