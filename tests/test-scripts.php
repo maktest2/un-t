@@ -114,7 +114,7 @@ print_r( did_action( 'wp_footer' ) . "\n" );
 				$response_body .= 'jQuery.noConflict();';
 			}
 			$this->assertEquals(
-				$original_content,
+				'jxf',
 				$response_body,
 				$handle . ' should be the same on unpkg'
 			);
