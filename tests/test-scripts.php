@@ -100,8 +100,7 @@ print_r( did_action( 'wp_footer' ) . "\n" );
 	 */
 	public function test_scripts_originals_and_unpkg_same() {
 		$scripts = wp_scripts();
-		add_action( 'wp_default_scripts', array( $this, 'copy_original_src' ) );
-		$scripts->init();
+
 		foreach ( Use_unpkg::get_instance()->unpkg_scripts as $handle => $data ) {
 			if ( in_array( $handle, array( 'twentysixteen-html5', 'html5', 'jquery-scrollto' ) ) ) {
 				continue;

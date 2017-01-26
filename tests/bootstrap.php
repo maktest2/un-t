@@ -21,5 +21,13 @@ function _manually_load_plugin() {
 }
 tests_add_filter( 'muplugins_loaded', '_manually_load_plugin' );
 
+function _copy_original_dependency_src( $scripts ) {
+	foreach ( Use_unpkg::get_instance()->unpkg_scripts as $handle => $data ) {
+		$script = $scripts->query( $handle );
+		$script->original_src = $script->src;
+	}
+}
+tests_add_filter( 'wp_default_scripts', '_copy_original_dependency_src' );
+
 // Start up the WP testing environment.
 require $_tests_dir . '/includes/bootstrap.php';
