@@ -17,6 +17,7 @@ class Tests_Use_unpkg_Scripts extends WP_UnitTestCase {
 	function setUp() {
 		parent::setUp();
 echo 'setup me' . "\n";
+echo current_filter() . "\n";
 		add_action( 'wp_default_scripts', array( $this, 'copy_original_src' ) );
 	}
 
@@ -52,6 +53,7 @@ echo 'setup me' . "\n";
 			);
 			echo $script->src . "\n";
 		}
+echo current_filter() . "\n";
 	}
 
 	/**
@@ -79,6 +81,7 @@ echo $handle . "\n";
 			);
 			echo $response_code . "\n";
 		}
+echo current_filter() . "\n";
 	}
 
 	/**
