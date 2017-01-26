@@ -81,7 +81,10 @@ echo $handle . "\n";
 			);
 			echo $response_code . "\n";
 		}
-echo current_filter() . "\n";
+print_r( did_action( 'init' ) ) . "\n";
+print_r( did_action( 'template_redirect' ) ) . "\n";
+print_r( did_action( 'wp_head' ) ) . "\n";
+print_r( did_action( 'wp_footer' ) ) . "\n";
 	}
 
 	/**
