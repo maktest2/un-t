@@ -23,10 +23,12 @@ echo current_filter() . "\n";
 
 	public function copy_original_src( $scripts ) {
 		echo 'copy me' . "\n";
-		print_r( $scripts . "\n" );
+		print_r( $scripts );
+		echo "\n";
 		foreach ( Use_unpkg::get_instance()->unpkg_scripts as $handle => $data ) {
 			$script = $scripts->query( $handle );
-			print_r( $script . "\n" );
+			echo $handle . "\n";
+			print_r( $script );
 			$script->original_src = $script->src;
 		}
 	}
