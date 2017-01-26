@@ -114,8 +114,8 @@ print_r( did_action( 'wp_footer' ) . "\n" );
 				$response_body .= 'jQuery.noConflict();';
 			}
 			$this->assertEquals(
+				$original_content,
 				$response_body,
-				'staaaasds',
 				$handle . ' should be the same on unpkg'
 			);
 		}
