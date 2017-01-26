@@ -23,8 +23,10 @@ echo current_filter() . "\n";
 
 	public function copy_original_src( $scripts ) {
 		echo 'copy me' . "\n";
+		print_r( $scripts . "\n" );
 		foreach ( Use_unpkg::get_instance()->unpkg_scripts as $handle => $data ) {
 			$script = $scripts->query( $handle );
+			print_r( $script . "\n" );
 			$script->original_src = $script->src;
 		}
 	}
@@ -82,6 +84,7 @@ echo $handle . "\n";
 			echo $response_code . "\n";
 		}
 print_r( did_action( 'init' ) . "\n" );
+print_r( did_action( 'wp' ) . "\n" );
 print_r( did_action( 'template_redirect' ) . "\n" );
 print_r( did_action( 'wp_head' ) . "\n" );
 print_r( did_action( 'wp_footer' ) . "\n" );
