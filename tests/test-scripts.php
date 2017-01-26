@@ -1,6 +1,8 @@
 <?php
 /**
  * Class Tests_Use_unpkg
+
+ * @ see https://stackoverflow.com/questions/7493102/phpunit-cli-output-during-test-debugging-possible#12606210
  *
  * @package Use_unpkg
  * @subpackage Test
@@ -14,11 +16,12 @@
 class Tests_Use_unpkg_Scripts extends WP_UnitTestCase {
 	function setUp() {
 		parent::setUp();
-
+echo 'setup me' . "\n";
 		add_action( 'wp_default_scripts', array( $this, 'copy_original_src' ) );
 	}
 
 	public function copy_original_src( $scripts ) {
+		echo 'copy me' . "\n";
 		foreach ( Use_unpkg::get_instance()->unpkg_scripts as $handle => $data ) {
 			$script = $scripts->query( $handle );
 			$script->original_src = $script->src;
@@ -68,7 +71,7 @@ echo $handle . "\n";
 			$script = $scripts->query( $handle );
 			$response = wp_remote_get( $script->src );
 			$response_code = wp_remote_retrieve_response_code( $response );
-			print_r( $response );
+			//print_r( $response );
 			$this->assertEquals(
 				200,
 				$response_code,
