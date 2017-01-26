@@ -14,14 +14,6 @@
  * @since 1.0
  */
 class Tests_Use_unpkg_Scripts extends WP_UnitTestCase {
-	public function copy_original_src( $scripts ) {
-		foreach ( Use_unpkg::get_instance()->unpkg_scripts as $handle => $data ) {
-			$script = $scripts->query( $handle );
-
-			$script->original_src = $script->src;
-		}
-	}
-
 	/**
 	 * Test that scripts sources are replaced.
 	 *
